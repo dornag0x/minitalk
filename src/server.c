@@ -52,15 +52,11 @@ void	handler(int signals)
 	}
 }
 
-int	main()
+int	main(void)
 {
-	struct sigaction	act;
-
-	ft_printf("%d\n", getpid());
-	act.sa_handler = handler;
-	act.sa_flags = SA_RESTART;
-	sigaction(SIGUSR1, &act, NULL);
-	sigaction(SIGUSR2, &act, NULL);
+	ft_printf("server PID: \e[1;32m[%d]\e[0m \n", getpid());
+	signal(SIGUSR1, handler);
+	signal(SIGUSR2, handler);
 	while (1)
 		pause();
 }

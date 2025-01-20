@@ -30,7 +30,7 @@ void	err_handle(int err)
 	}
 	if (err == 3)
 	{
-		ft_printf("\e[1;31m[ERROR]\e[0m Wrong arguments! You should provid a valid PID and a valid string");
+		ft_printf("\e[1;31m[ERROR]\e[0m Wrong arguments!");
 		exit(EXIT_FAILURE);
 	}
 }
