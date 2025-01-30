@@ -6,57 +6,68 @@
 /*   By: hfeufeu <feufeuhugo@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 13:46:24 by hfeufeu           #+#    #+#             */
-/*   Updated: 2025/01/17 13:57:39 by hfeufeu          ###   ########.fr       */
+/*   Updated: 2025/01/30 13:54:27 by hfeufeu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/minitalk.h"
 
-void	append_char(char **str, char letter)
+void append_char(t_lst *list, char letter)
 {
-	char	*new_str;
-	size_t	len;
+	t_node *new_node;
 
-	if (!*str)
-		*str = ft_strdup("");
-	len = ft_strlen(*str);
-	new_str = malloc(len + 2);
-	if (!new_str)
-		err_handle(0);
-	ft_memcpy(new_str, *str, len);
-	new_str[len] = letter;
-	new_str[len + 1] = '\0';
-	free(*str);
-	*str = new_str;
+	new_node = malloc(sizeof(t_node));
+	if (!new_node)
+		return;
+	new_node->c = letter;
+	new_node->next = NULL;
+	if (!list->head)
+		list->head = new_node;
+	else
+		list->tail->next = new_node;
+	list->tail = new_node;
 }
 
 void	handler(int signals)
 {
-	static int	counter = 0;
-	static int	result = 0;
-	static char	*final = NULL;
+	static int		counter = 0;
+	static int		result = 0;
+	static t_lst	*final = NULL;
+	char			*msg;
 
+	if (!final)
+		final = init_list();
 	if (signals == SIGUSR2)
 		result |= (1 << (7 - counter));
 	counter++;
 	if (counter == 8)
 	{
-		append_char(&final, result);
+		append_char(final, result);
 		if (result == '\0')
 		{
-			ft_printf("%s\n", final);
-			free(final);
-			final = NULL;
+			msg = list_to_string(final);
+			ft_printf("%s\n", msg);
+			free(msg);
+			free_list(final);
+			final = init_list();
 		}
 		counter = 0;
 		result = 0;
 	}
 }
 
+
 int	main(void)
 {
+	struct sigaction sa;
+
 	ft_printf("server PID: \e[1;32m[%d]\e[0m \n", getpid());
-	signal(SIGUSR1, handler);
-	signal(SIGUSR2, handler);
+	sa.sa_flags = 0;
+	sigemptyset(&sa.sa_mask);
+	sigaddset(&sa.sa_mask, SIGUSR1);
+	sigaddset(&sa.sa_mask, SIGUSR2);
+	sa.sa_handler = handler;
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
 	while (1)
 		pause();
 }

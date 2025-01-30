@@ -6,7 +6,7 @@
 /*   By: hfeufeu <feufeuhugo@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 12:57:42 by hfeufeu           #+#    #+#             */
-/*   Updated: 2025/01/17 14:24:14 by hfeufeu          ###   ########.fr       */
+/*   Updated: 2025/01/30 13:53:01 by hfeufeu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/minitalk.h"
@@ -47,7 +47,7 @@ int	main(int argc, char **argv)
 	if (argc == 3)
 	{
 		data.s_PID = ft_atoi(argv[1]);
-		if (!data.s_PID)
+		if (data.s_PID < 1)
 			err_handle(1);
 		data.msg = argv[2];
 		if (!data.msg)
