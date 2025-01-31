@@ -12,21 +12,34 @@
 #ifndef MINITALK_H
 # define MINITALK_H
 
-#include <stdlib.h>
-#include <signal.h>
-#include "../libft/libft.h"
-#include "../printf/ft_printf.h" 
+# include <stdlib.h>
+# include <signal.h>
+# include "../libft/libft.h"
+# include "../printf/ft_printf.h" 
+
+# define SLEEP 300
+# define RED "\e[1;31m"
+# define GREEN "\e[1;32m"
+# define END "\e[0m"
+
+typedef enum ERR
+{
+	ERR_ALLOC,
+	ERR_PID,
+	ERR_STR,
+	ERR_ARG
+}	t_err;
 
 typedef struct s_data
 {
-	int		s_PID;
+	int		pid;
 	char	*msg;
 }	t_data;
 
 typedef struct s_node
 {
     char            c;
-    struct s_node   *next;
+	struct s_node   *next;
 }   t_node;
 
 typedef struct s_lst
@@ -39,5 +52,5 @@ void	free_list(t_lst *list);
 char	*list_to_string(t_lst *list);
 t_lst	*init_list();
 void	append_char(t_lst *list, char letter);
-void	err_handle(int err);
+void	err_handle(t_err err);
 #endif

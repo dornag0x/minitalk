@@ -26,7 +26,7 @@ void	sigsend(int s_PID, char *msg)
 				kill(s_PID, SIGUSR1);
 			if (((unsigned int)(msg[i] >> (7 - j)) & 1) == 1)
 				kill(s_PID, SIGUSR2);
-			usleep(300);
+			usleep(SLEEP);
 			j++;
 		}
 		i++;
@@ -35,7 +35,7 @@ void	sigsend(int s_PID, char *msg)
 	while (i < 8)
 	{
 		kill(s_PID, SIGUSR1);
-		usleep(300);
+		usleep(SLEEP);
 		i++;
 	}
 }
@@ -46,15 +46,15 @@ int	main(int argc, char **argv)
 
 	if (argc == 3)
 	{
-		data.s_PID = ft_atoi(argv[1]);
-		if (data.s_PID < 1)
-			err_handle(1);
+		data.pid = ft_atoi(argv[1]);
+		if (data.pid < 1)
+			err_handle(ERR_PID);
 		data.msg = argv[2];
 		if (!data.msg)
-			err_handle(2);
-		sigsend(data.s_PID, data.msg);
+			err_handle(ERR_STR);
+		sigsend(data.pid, data.msg);
 	}
 	else
-		err_handle(3);
+		err_handle(ERR_ARG);
 	return (0);
 }

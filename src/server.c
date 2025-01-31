@@ -17,7 +17,7 @@ void append_char(t_lst *list, char letter)
 
 	new_node = malloc(sizeof(t_node));
 	if (!new_node)
-		return;
+		err_handle(ERR_ALLOC);
 	new_node->c = letter;
 	new_node->next = NULL;
 	if (!list->head)
@@ -27,12 +27,26 @@ void append_char(t_lst *list, char letter)
 	list->tail = new_node;
 }
 
+void	print_lst(t_lst *final)
+{
+	t_node	*tmp;
+	int		i;
+
+	i = 0;
+	tmp = final->head;
+	while (tmp)
+	{
+		write(1, &tmp->c, 1);
+		tmp = tmp->next;
+	}
+}
+
 void	handler(int signals)
 {
 	static int		counter = 0;
 	static int		result = 0;
 	static t_lst	*final = NULL;
-	char			*msg;
+	//char			*msg;
 
 	if (!final)
 		final = init_list();
@@ -44,11 +58,9 @@ void	handler(int signals)
 		append_char(final, result);
 		if (result == '\0')
 		{
-			msg = list_to_string(final);
-			ft_printf("%s\n", msg);
-			free(msg);
+			print_lst(final);
 			free_list(final);
-			final = init_list();
+			final = NULL;
 		}
 		counter = 0;
 		result = 0;

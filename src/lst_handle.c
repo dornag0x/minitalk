@@ -39,29 +39,6 @@ t_lst	*init_list(void)
 	return (list);
 }
 
-char	*list_to_string(t_lst *list)
-{
-	int		i;
-	char	*res;
-	t_node	*tmp;
-	int		len;
-
-	len = get_lenght(list);
-	res = malloc(sizeof(char) * (len + 1));
-	if (!res)
-		return (NULL);
-	tmp = list->head;
-	i = 0;
-	while (i < len)
-	{
-		res[i] = tmp->c;
-		tmp = tmp->next;
-		i++;
-	}
-	res[i] = '\0';
-	return (res);
-}
-
 void	free_list(t_lst *list)
 {
 	t_node	*tmp;

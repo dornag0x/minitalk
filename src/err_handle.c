@@ -11,26 +11,26 @@
 /* ************************************************************************** */
 #include "../includes/minitalk.h"
 
-void	err_handle(int err)
+void	err_handle(t_err err)
 {
-	if (err == 0)
+	if (err == ERR_ALLOC)
 	{
-		ft_printf("\e[1;31m[ERROR]\e[0m Bad allocation");
+		ft_putstr_fd(RED "[ERROR]" END "Bad allocation \n", 2);
 		exit(EXIT_FAILURE);
 	}
-	if (err == 1)
+	if (err == ERR_PID)
 	{
-		ft_printf("\e[1;31m[ERROR]\e[0m Please enter a valid PID");
+		ft_putstr_fd(RED "[ERROR]" END "Please enter a valid PID \n", 2);
 		exit(EXIT_FAILURE);
 	}
-	if (err == 2)
+	if (err == ERR_STR)
 	{
-		ft_printf("\e[1;31m[ERROR]\e[0m Please enter a valid string");
+		ft_putstr_fd("\e[1;31m[ERROR]\e[0m Please enter a valid string \n", 2);
 		exit(EXIT_FAILURE);
 	}
-	if (err == 3)
+	if (err == ERR_ARG)
 	{
-		ft_printf("\e[1;31m[ERROR]\e[0m Wrong arguments!");
+		ft_putstr_fd("\e[1;31m[ERROR]\e[0m Wrong arguments! \n", 2);
 		exit(EXIT_FAILURE);
 	}
 }
