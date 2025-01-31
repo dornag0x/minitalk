@@ -26,7 +26,7 @@ void	sigsend(int s_PID, char *msg)
 				kill(s_PID, SIGUSR1);
 			if (((unsigned int)(msg[i] >> (7 - j)) & 1) == 1)
 				kill(s_PID, SIGUSR2);
-			usleep(55);
+			usleep(300);
 			j++;
 		}
 		i++;
@@ -35,7 +35,7 @@ void	sigsend(int s_PID, char *msg)
 	while (i < 8)
 	{
 		kill(s_PID, SIGUSR1);
-		usleep(55);
+		usleep(300);
 		i++;
 	}
 }
