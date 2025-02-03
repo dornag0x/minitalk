@@ -38,19 +38,19 @@ typedef struct s_data
 
 typedef struct s_node
 {
-    char            c;
-	struct s_node   *next;
-}   t_node;
+	char			c;
+	struct s_node	*next;
+}	t_node;
 
 typedef struct s_lst
 {
-    t_node  *head;
-    t_node  *tail;
-}   t_lst;
+	t_node	*head;
+	t_node	*tail;
+}	t_lst;
 
 void	free_list(t_lst *list);
 char	*list_to_string(t_lst *list);
-t_lst	*init_list();
+t_lst	*init_list(void);
 void	append_char(t_lst *list, char letter);
 void	err_handle(t_err err);
 #endif

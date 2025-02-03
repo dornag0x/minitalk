@@ -11,9 +11,9 @@
 /* ************************************************************************** */
 #include "../includes/minitalk.h"
 
-void append_char(t_lst *list, char letter)
+void	append_char(t_lst *list, char letter)
 {
-	t_node *new_node;
+	t_node	*new_node;
 
 	new_node = malloc(sizeof(t_node));
 	if (!new_node)
@@ -30,9 +30,7 @@ void append_char(t_lst *list, char letter)
 void	print_lst(t_lst *final)
 {
 	t_node	*tmp;
-	int		i;
 
-	i = 0;
 	tmp = final->head;
 	while (tmp)
 	{
@@ -46,7 +44,6 @@ void	handler(int signals)
 	static int		counter = 0;
 	static int		result = 0;
 	static t_lst	*final = NULL;
-	//char			*msg;
 
 	if (!final)
 		final = init_list();
@@ -67,10 +64,9 @@ void	handler(int signals)
 	}
 }
 
-
 int	main(void)
 {
-	struct sigaction sa;
+	struct sigaction	sa;
 
 	ft_printf("server PID: \e[1;32m[%d]\e[0m \n", getpid());
 	sa.sa_flags = 0;
